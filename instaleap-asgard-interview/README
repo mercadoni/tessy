@@ -4,14 +4,14 @@ This project is designed to test your ability to understand an existing system a
 ## The Challenge - Context
 At Instaleap, our team focuses on developing integrations. Our work involves translating Instaleap's vocabulary into the vocabulary of our external partners through API calls. This test is a fragment of what we usually do and demonstrates your ability to create integrations and communicate with external APIs.
 
-In this small system, we want to notify one of our marketplaces, in this case, WOLT, that an order was collected and modified. We aim to simulate a real test environment, so a mock of the Uber service will be provided.
+In this small system, we want to notify one of our marketplaces, in this case, WOLT, that an order was collected and modified. We aim to simulate a real test environment, so a mock of the WOLT service will be provided.
 
 The mocks required in this challenge are in `instaleap-environment-mock`, this is a simple mock service that will simulate: `InstaleapOrder`. In order to run this mock is required docker. You can launch all the environment you can just run `./run.sh`. If you have any problem with the mocks, run `./clear` to delete the image and generate it again.
 
 All the mocks calls can be found in the [postman collection](Interview.postman_collection.json) provided
 
 - **GetWoltOrder**: This endpoint is the mock to get the original Wolt order
-- **Webhook**: This endpoint simulate a "picking finished" event
+- **Webhook**: This endpoint simulate a "picking finished" event. This endpoint will submit the event to the orders `orders-events` in Rabbit.
 - **ReplaceItem**: This endpoint simulate a replace item call to wolt
 
 ![alt text](Flow.png)
@@ -42,7 +42,7 @@ We need to specify to Wolt when:
 
 - **An item was removed**: This means the picker was unable to find the item requested by the user. This case has a special scenario where an item was replaced, but the replacement was also not found.
 
-- **No matched quantity items**: These are items where, due to availability issues, the original requested quantity was modified. This case is internally composed of two different item types: `unitary` and `weighable`.
+- **No matched quantity items**: These are items where, due to availability issues, the original requested quantity was modified.
 
 - **Valid replacement**: These are items that were replaced with a similar item. For example, a Dolex Gripa was replaced with a Noraver Gripa.
 
@@ -65,31 +65,11 @@ For both cases, the count is set to 0 to indicate the item is not available.
 - `WoltItemChangesPayload` with count set to 0 and `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT` type.
 
 **Behavior:**
-- Sets `row_number` to `item.attributes.row` to identify the specific item row.
+- Sets `row_number` to `item.id` to identify the specific item row.
 - Sets replacement type to `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
 - Sets count to 0 to indicate unavailability.
 
 ### mapNoMatchedQuantityItems
-
-Maps items with quantity differences (where `found_quantity` differs from `requested_quantity`) to the Wolt payload format.
-
-This function handles items where the picker found a different quantity than what was originally requested. It delegates to `mapNoMatchedUnitaryQuantityDifference` for the base mapping and then applies additional logic for non-unitary items.
-
-**Parameters:**
-- `item: WebhookItem` - The webhook item with quantity differences.
-
-**Returns:**
-- `WoltItemChangesPayload` with appropriate replacement type and quantity/weight adjustments.
-
-**Behavior:**
-- First calls `mapNoMatchedUnitaryQuantityDifference` to get base mapping.
-- For non-unitary items (not measured in "UN"):
-  - Converts `found_quantity` to weight (multiplied by 1000).
-  - Changes replacement type to `WEIGHT_CHANGE_REPLACEMENT`.
-  - Sets count to 1.
-- For unitary items, uses the base mapping as-is.
-
-### mapNoMatchedUnitaryQuantityDifference
 
 Creates the base mapping for items with quantity differences, specifically for unitary items.
 
@@ -102,7 +82,7 @@ This function provides the fundamental structure for quantity change replacement
 - `WoltItemChangesPayload` with the found quantity and `COUNT_CHANGE_REPLACEMENT` type.
 
 **Behavior:**
-- Uses the `item.attributes.row` from attributes.
+- Uses the `item.id` from attributes.
 - Sets replacement type to `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
 - Sets count to the item's `found_quantity`.
 - This serves as the base mapping that can be modified by `mapNoMatchedQuantityItems`.
@@ -121,9 +101,25 @@ This function handles items that were replaced with valid substitute items. It r
 
 **Behavior:**
 - Retrieves the first valid substitute of the current item. It relies on this logic from `itemCategorizer`.
-- Uses the original `item.attributes.row` as a `row_number`.
+- Uses the original `item.id` as a `row_number`.
 - Sets replacement type to `MENU_ITEM_REPLACEMENT`.
 - For unitary substitutes: uses the substitute's `found_quantity` as count.
 - For non-unitary substitutes: sets count to 1.
 - Includes the substitute's name and price information.
 - Converts price to cents (multiplied by 100) and includes currency, which is an attribute of the class.
+
+## Process the event for picking finished
+Once the picking process is complete, we need to notify the system. We have two options for this:
+
+Use the Webhook Endpoint: Our mock Webhook endpoint performs two actions: it publishes the event to a local RabbitMQ queue named orders-events and returns the event.
+
+Use a Listener: You can create a listener to read the event directly from the queue. We are also open to an alternative where you call the Webhook endpoint, retrieve the event, and then process it within the interactor by invoking it from an endpoint.
+
+Please provide the advantages and disadvantages of each approach.
+
+Finally, here are the RabbitMQ constants you can use if you choose to work with the queue.
+
+```
+const RABBIT_URL = process.env.RABBIT_URL || "amqp://guest:guest@rabbitmq:5672";
+const QUEUE = process.env.QUEUE || "orders-events";
+```

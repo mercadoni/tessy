@@ -1,7 +1,4 @@
-export interface WoltRejectOrderPayload {
-  reason: string
-  code?: WoltCodeRejectOrder
-}
+
 
 
 export enum WoltCodeRejectOrder {

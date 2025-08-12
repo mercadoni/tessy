@@ -73,21 +73,8 @@ export class ReceiveOrderPickingInteractor {
     return items
   }
 
-  private mapNoMatchedQuantityItems(item: WebhookItem): WoltItemChangesPayload {
-    const mapppedItem = this.mapNoMatchedUnitaryQuantityDifference(item)
-    // TODO 2.1: Implement the actual mapping logic for removed or invalid replacement items
-    // This is a stub implementation, replace with actual logic
-    // Check the README for more details, 
-    // Hint, there is two cases in this method, one for unitary items and another for weightable items
-
-    return mapppedItem
-  }
-
-  private mapNoMatchedUnitaryQuantityDifference(_: WebhookItem): WoltItemChangesPayload {
-    // TODO 2.2: Implement the actual mapping logic for unitary items with quantity differences
-    // This is a stub implementation, replace with actual logic
-    // Check the README for more details
-    return {
+  private mapNoMatchedQuantityItems(_: WebhookItem): WoltItemChangesPayload {
+      return {
       row_number: 0,
       replacement_items: [
         {

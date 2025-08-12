@@ -1,15 +1,13 @@
 import { WoltOrder } from "src/models/wolt_order"
-import { WoltRejectOrderPayload, WoltReplaceItemsPayload } from "src/models/wolt_payloads"
+import { WoltReplaceItemsPayload } from "src/models/wolt_payloads"
 
 export interface WoltService {
     getRequestHeaders(): Record<string, string>
     getOrder(orderId: string): Promise<WoltOrder>
-    acceptOrder(orderId: string): Promise<void>
-    rejectOrder(orderId: string, payload: WoltRejectOrderPayload): Promise<void>
     replaceItems(orderId: string, payload: WoltReplaceItemsPayload): Promise<void>
 }
 
-export class WoltServiceImplementation {
+export class WoltServiceImplementation implements WoltService {
   getRequestHeaders(): Record<string, string> {
     const token = process.env.wolt_token
 
