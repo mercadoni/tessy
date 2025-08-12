@@ -1,0 +1,255 @@
+{
+    "job": {
+        "client_reference": "688cbc5a69bb26b09ef27ff0",
+        "job_items": [
+            {
+                "id": "9003903446563",
+                "name": "Alm Salami Bites, 80g",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 3,
+                "found_quantity": 2,
+                "attributes": {
+                    "row": 7,
+                    "sku": "9003903446563",
+                    "category": "Salamis"
+                },
+                "unit": "UN",
+                "price": 3.99
+            },
+            {
+                "id": "2460241",
+                "name": "Banana Premium",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 2,
+                "found_quantity": 1.642,
+                "attributes": {
+                    "row": 10,
+                    "sku": "2460241",
+                    "category": "Fruit"
+                },
+                "unit": "KG",
+                "price": 1.79
+            },
+            {
+                "id": "5449000133328",
+                "name": "Coca Cola Zero, 1l",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 3,
+                "found_quantity": 1,
+                "attributes": {
+                    "row": 4,
+                    "sku": "5449000133328",
+                    "deposit": 10,
+                    "category": "Soft Drinks"
+                },
+                "unit": "UN",
+                "price": 1.5
+            },
+            {
+                "id": "4036117012489",
+                "name": "Doktorskaya Tri Porosenka Russian Sausage Kolbasa, 500g",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 1,
+                "found_quantity": 1,
+                "attributes": {
+                    "row": 0,
+                    "sku": "4036117012489",
+                    "category": "Sausages & Bacon"
+                },
+                "unit": "UN",
+                "price": 5.22
+            },
+            {
+                "id": "2460824",
+                "name": "Dragon Fruit Mix, 500g",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 3,
+                "found_quantity": 1,
+                "attributes": {
+                    "row": 8,
+                    "sku": "2460824",
+                    "category": "Pre-packed Fruit"
+                },
+                "unit": "UN",
+                "price": 8.78
+            },
+            {
+                "id": "9003903496483",
+                "name": "Farmers Bratwurst, 360g",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 1,
+                "found_quantity": 1,
+                "attributes": {
+                    "row": 3,
+                    "sku": "9003903496483",
+                    "category": "Sausages & Bacon"
+                },
+                "unit": "UN",
+                "price": 6.05
+            },
+            {
+                "id": "2480006",
+                "name": "Fresh Minced Chicken",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 0.4,
+                "found_quantity": 0.392,
+                "attributes": {
+                    "row": 11,
+                    "sku": "2480006",
+                    "category": "Poultry & Game"
+                },
+                "unit": "KG",
+                "price": 9.45
+            },
+            {
+                "id": "2460591",
+                "name": "Fruit Salad, 500g",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 1,
+                "found_quantity": 1,
+                "attributes": {
+                    "row": 9,
+                    "sku": "2460591",
+                    "category": "Pre-packed Fruit"
+                },
+                "unit": "UN",
+                "price": 3.97
+            },
+            {
+                "id": "4036117030476",
+                "name": "Germes Frankfurters, 300g",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 1,
+                "found_quantity": 1,
+                "attributes": {
+                    "row": 1,
+                    "sku": "4036117030476",
+                    "category": "Sausages & Bacon"
+                },
+                "unit": "UN",
+                "price": 5.99
+            },
+            {
+                "id": "9003903496698",
+                "name": "Knacker Pork Sausages, 450g",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 1,
+                "found_quantity": 1,
+                "attributes": {
+                    "row": 2,
+                    "sku": "9003903496698",
+                    "category": "Sausages & Bacon"
+                },
+                "unit": "UN",
+                "price": 6.52
+            },
+            {
+                "id": "2480934",
+                "name": "Marinated Pork Steaks",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 1,
+                "found_quantity": 1.162,
+                "attributes": {
+                    "row": 12,
+                    "sku": "2480934",
+                    "category": "Pork"
+                },
+                "unit": "KG",
+                "price": 9.5
+            },
+            {
+                "id": "5352201084194",
+                "name": "Pepsi, 1,5l",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 2,
+                "found_quantity": 2,
+                "attributes": {
+                    "row": 5,
+                    "sku": "5352201084194",
+                    "deposit": 10,
+                    "category": "Soft Drinks"
+                },
+                "unit": "UN",
+                "price": 1.39
+            },
+            {
+                "id": "8001160003612",
+                "name": "Pepsi Max Zero Pet, 500ml",
+                "status": "ADDED",
+                "replacements": [],
+                "is_substitute": false,
+                "added_by": "CLIENT",
+                "quantity": 1,
+                "found_quantity": 1,
+                "attributes": {
+                    "row": 6,
+                    "sku": "8001160003612",
+                    "deposit": 10,
+                    "category": "Soft Drinks"
+                },
+                "unit": "UN",
+                "price": 1.08
+            }
+        ],
+        "payment_info": {
+            "prices": {
+                "taxes": 0,
+                "subtotal": 91.88,
+                "discounts": 6.11,
+                "order_value": 85.77,
+                "shipping_fee": 0,
+                "attributes": [],
+                "additional_info": []
+            },
+            "invoice": null,
+            "payment": {
+                "id": null,
+                "method": "PREPAID",
+                "reference": null,
+                "method_details": null,
+                "blocking_policy": "UNBLOCKED",
+                "payment_status_details": null,
+                "payment_status": "SUCCEEDED",
+                "value": 0,
+                "metadata": null
+            },
+            "currency_code": "EUR"
+        }
+    }
+}

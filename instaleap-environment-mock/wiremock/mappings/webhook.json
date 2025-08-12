@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v2/webhook"
+  },
+
+  "response": {
+    "status": 200,
+    "bodyFileName": "pickingEvent.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+
+  "serveEventListeners": [
+    {
+      "name": "webhook",
+      "parameters": {
+        "method": "POST",
+        "url": "http://publisher:3000/publish",
+        "headers": { "Content-Type": "application/json" }
+      }
+    }
+  ]
+}

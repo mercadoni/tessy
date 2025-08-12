@@ -1,0 +1,248 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"InteractorResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"WebhookItemState": {
+				"enum": [
+					"ADDED",
+					"REMOVED",
+					"REPLACED"
+				],
+				"type": "string"
+			},
+			"WebhookItemAddedBy": {
+				"enum": [
+					"CLIENT",
+					"PICKER",
+					"CONTROL_TOWER",
+					"LSW"
+				],
+				"type": "string"
+			},
+			"WebhookItemAttributes": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "number",
+							"format": "double"
+						}
+					]
+				}
+			},
+			"WebhookItem": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"status": {
+						"$ref": "#/components/schemas/WebhookItemState"
+					},
+					"replacements": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"is_substitute": {
+						"type": "boolean"
+					},
+					"added_by": {
+						"$ref": "#/components/schemas/WebhookItemAddedBy"
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"found_quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"attributes": {
+						"$ref": "#/components/schemas/WebhookItemAttributes"
+					},
+					"unit": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"status",
+					"replacements",
+					"is_substitute",
+					"added_by",
+					"quantity",
+					"found_quantity",
+					"attributes",
+					"unit",
+					"price"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"WebhookPaymentInfo": {
+				"properties": {
+					"currency_code": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"currency_code"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"WebhookJob": {
+				"properties": {
+					"client_reference": {
+						"type": "string"
+					},
+					"job_items": {
+						"items": {
+							"$ref": "#/components/schemas/WebhookItem"
+						},
+						"type": "array"
+					},
+					"payment_info": {
+						"$ref": "#/components/schemas/WebhookPaymentInfo"
+					}
+				},
+				"required": [
+					"client_reference",
+					"job_items",
+					"payment_info"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"WebhookJobEvent": {
+				"properties": {
+					"job": {
+						"$ref": "#/components/schemas/WebhookJob"
+					}
+				},
+				"required": [
+					"job"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "Instaleap Asgard Interview API",
+		"version": "1.0.0",
+		"description": "API for handling order picking webhook events",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Instaleap",
+			"email": "api@instaleap.io"
+		}
+	},
+	"paths": {
+		"/order/picking/webhook": {
+			"post": {
+				"operationId": "HandleOrderEvent",
+				"responses": {
+					"200": {
+						"description": "Event processed successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InteractorResponse"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"job": {
+												"client_reference": "wolt_order_12345",
+												"job_items": [
+													{
+														"id": "item_1",
+														"name": "Organic Bananas",
+														"status": "ADDED",
+														"replacements": [],
+														"is_substitute": false,
+														"added_by": "CLIENT",
+														"quantity": 5,
+														"found_quantity": 4,
+														"attributes": {
+															"row": "1"
+														},
+														"unit": "UN",
+														"price": 2.5
+													}
+												],
+												"payment_info": {
+													"currency_code": "EUR"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Orders"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/WebhookJobEvent"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	],
+	"tags": [
+		{
+			"name": "Orders",
+			"description": "Order management endpoints"
+		}
+	]
+}

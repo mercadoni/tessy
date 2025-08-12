@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=cluster_cookie
+      - RABBITMQ_DEFAULT_USER=synch
+      - RABBITMQ_DEFAULT_PASS=synch
+
+  postgres:
+    image: postgres:16
+    container_name: postgres-synch
+    ports:
+      - '35432:5432'
+    environment:
+      - POSTGRES_USER=synch
+      - POSTGRES_PASSWORD=AjansJASBjbjajasfjknskjd
+    volumes:
+      - 'postgres_data:/var/lib/postgresql/data'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U synch']
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+  dbmate:
+    image: amacneil/dbmate:2.13.0
+    container_name: ts-dbmate
+    environment:
+      - POSTGRES_USER=synch
+      - POSTGRES_PASSWORD=AjansJASBjbjajasfjknskjd
+    volumes:
+      - ./db:/db
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: -d db/migrations/ up
+
+volumes:
+  postgres_data:

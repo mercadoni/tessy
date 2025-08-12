@@ -1,0 +1,33 @@
+{
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/controllers/**/*controller.ts"],
+  "spec": {
+    "outputDirectory": "docs",
+    "specVersion": 3,
+    "name": "Instaleap Asgard Interview API",
+    "description": "API for handling order picking webhook events",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Instaleap",
+      "email": "api@instaleap.io"
+    },
+    "schemes": ["http", "https"],
+    "tags": [
+      {
+        "name": "Orders",
+        "description": "Order management endpoints"
+      }
+    ]
+  },
+  "routes": {
+    "routesDir": "src/routes",
+    "middleware": "express"
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"]
+    }
+  }
+}

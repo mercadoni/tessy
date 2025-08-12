@@ -1,0 +1,1043 @@
+{
+ "id": "688cbc5a69bb26b09ef27ff0",
+ "venue": {
+ "id": "67f64074bcc0a244a25f1fbd",
+ "name": "Greens test venue Instaleap",
+ "external_venue_id": "GREENS_SUPERMARKET"
+ },
+ "basket_price": {
+ "total": {
+ "amount": 6313,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 6795,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 482,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 332,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 150,
+ "currency": "EUR"
+ }
+ }
+ },
+ "delivery": {
+ "status": "none",
+ "type": "homedelivery",
+ "time": "2025-08-01T13:29:44.546Z",
+ "location": null,
+ "self_delivery": false,
+ "courier_tip": null
+ },
+ "fees": {
+ "total": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "liability": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ },
+ "parts": []
+ },
+ "items": [
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b2301091f623d2d201",
+ "count": 1,
+ "pos_id": null,
+ "sku": "4036117012489",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 496,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 496,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 496,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 522,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 26,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 26,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 522,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 522,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Doktorskaya Tri Porosenka Russian Sausage Kolbasa, 500g",
+ "category": {
+ "id": "238e7bf107e46f68ef2bbe8e",
+ "name": "Sausages & Bacon"
+ },
+ "deposit": null,
+ "row_number": 0,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b2301091f623d2d10e",
+ "count": 1,
+ "pos_id": null,
+ "sku": "4036117030476",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 569,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 569,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 569,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 599,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 30,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 30,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 599,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 599,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Germes Frankfurters, 300g",
+ "category": {
+ "id": "238e7bf107e46f68ef2bbe8e",
+ "name": "Sausages & Bacon"
+ },
+ "deposit": null,
+ "row_number": 1,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b2301091f623d2d20d",
+ "count": 1,
+ "pos_id": null,
+ "sku": "9003903496698",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 619,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 619,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 619,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 652,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 33,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 33,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 652,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 652,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Knacker Pork Sausages, 450g",
+ "category": {
+ "id": "238e7bf107e46f68ef2bbe8e",
+ "name": "Sausages & Bacon"
+ },
+ "deposit": null,
+ "row_number": 2,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b2301091f623d2d296",
+ "count": 1,
+ "pos_id": null,
+ "sku": "9003903496483",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 575,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 575,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 575,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 605,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 30,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 30,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 605,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 605,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Farmers Bratwurst, 360g",
+ "category": {
+ "id": "238e7bf107e46f68ef2bbe8e",
+ "name": "Sausages & Bacon"
+ },
+ "deposit": null,
+ "row_number": 3,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b2301091f623d2d32d",
+ "count": 2,
+ "pos_id": null,
+ "sku": "5352201084194",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 142,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 132,
+ "currency": "EUR"
+ },
+ "vat_percentage": 18.0,
+ "total": {
+ "amount": 284,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 298,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 14,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 14,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 139,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 149,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Pepsi, 1,5l",
+ "category": {
+ "id": "d23a9d10e72bbb471f09ca27",
+ "name": "Soft Drinks"
+ },
+ "deposit": {
+ "gross_price": {
+ "amount": 10,
+ "currency": "EUR"
+ },
+ "net_price": {
+ "amount": 10,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0
+ },
+ "row_number": 5,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": "Coca Cola"
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b3301091f623d2f96a",
+ "count": 1,
+ "pos_id": null,
+ "sku": "8001160003612",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 113,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 103,
+ "currency": "EUR"
+ },
+ "vat_percentage": 18.0,
+ "total": {
+ "amount": 113,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 118,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 5,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 5,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 108,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 118,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Pepsi Max Zero Pet, 500ml",
+ "category": {
+ "id": "d23a9d10e72bbb471f09ca27",
+ "name": "Soft Drinks"
+ },
+ "deposit": {
+ "gross_price": {
+ "amount": 10,
+ "currency": "EUR"
+ },
+ "net_price": {
+ "amount": 10,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0
+ },
+ "row_number": 6,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b3301091f623d2df74",
+ "count": 1,
+ "pos_id": null,
+ "sku": "2460591",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 377,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 377,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 377,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 397,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 20,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 20,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 397,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 397,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Fruit Salad, 500g",
+ "category": {
+ "id": "b314285484f07f2650ca66da",
+ "name": "Pre-packed Fruit"
+ },
+ "deposit": null,
+ "row_number": 9,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b2301091f623d2d0ad",
+ "count": 2,
+ "pos_id": null,
+ "sku": "9003903446563",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 379,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 379,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 758,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 798,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 40,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 40,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 399,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 399,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Alm Salami Bites, 80g",
+ "category": {
+ "id": "6ac94a3fa63844b369531f3f",
+ "name": "Salamis"
+ },
+ "deposit": null,
+ "row_number": 13,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b3301091f623d2df2e",
+ "count": 1,
+ "pos_id": null,
+ "sku": "2460241",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 279,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 164,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 279,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 294,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 15,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 15,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 179,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 294,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Banana Premium",
+ "category": {
+ "id": "cad4dbe09f2883329e7c7ea1",
+ "name": "Fruit"
+ },
+ "deposit": null,
+ "row_number": 14,
+ "substitution_settings": {
+ "is_allowed": false,
+ "comment": ""
+ },
+ "weight_details": {
+ "weight_in_grams": 1642,
+ "requested_count": null,
+ "extra_weight_percentage": 20
+ }
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b2301091f623d2d378",
+ "count": 1,
+ "pos_id": null,
+ "sku": "5449000133328",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 10,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "vat_percentage": 18.0,
+ "total": {
+ "amount": 10,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 160,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 150,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 150,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 150,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 160,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Coca Cola Zero, 1l",
+ "category": {
+ "id": "d23a9d10e72bbb471f09ca27",
+ "name": "Soft Drinks"
+ },
+ "deposit": {
+ "gross_price": {
+ "amount": 10,
+ "currency": "EUR"
+ },
+ "net_price": {
+ "amount": 10,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0
+ },
+ "row_number": 15,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b3301091f623d2df1b",
+ "count": 1,
+ "pos_id": null,
+ "sku": "2460824",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 834,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 834,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 834,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 878,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 44,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 44,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 878,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 878,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Dragon Fruit Mix, 500g",
+ "category": {
+ "id": "b314285484f07f2650ca66da",
+ "name": "Pre-packed Fruit"
+ },
+ "deposit": null,
+ "row_number": 16,
+ "substitution_settings": {
+ "is_allowed": true,
+ "comment": ""
+ },
+ "weight_details": null
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b3301091f623d2ddf6",
+ "count": 1,
+ "pos_id": null,
+ "sku": "2480006",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 351,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 926,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 351,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 370,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 19,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 19,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 945,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 370,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Fresh Minced Chicken",
+ "category": {
+ "id": "c9797e864030f9992c475166",
+ "name": "Poultry & Game"
+ },
+ "deposit": null,
+ "row_number": 17,
+ "substitution_settings": {
+ "is_allowed": false,
+ "comment": ""
+ },
+ "weight_details": {
+ "weight_in_grams": 392,
+ "requested_count": null,
+ "extra_weight_percentage": 20
+ }
+ },
+ {
+ "item_type": "order-retail-item-with-price-breakdown",
+ "id": "67f7d6b3301091f623d2f23d",
+ "count": 1,
+ "pos_id": null,
+ "sku": "2480934",
+ "gtin": null,
+ "options": [],
+ "item_price": {
+ "unit_price": {
+ "amount": 1048,
+ "currency": "EUR"
+ },
+ "base_price": {
+ "amount": 894,
+ "currency": "EUR"
+ },
+ "vat_percentage": 0.0,
+ "total": {
+ "amount": 1048,
+ "currency": "EUR"
+ },
+ "price_breakdown": {
+ "total_before_discounts": {
+ "amount": 1104,
+ "currency": "EUR"
+ },
+ "total_discounts": {
+ "amount": 56,
+ "currency": "EUR"
+ },
+ "subtotal_basket_discounts": {
+ "amount": 56,
+ "currency": "EUR"
+ },
+ "subtotal_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "base_price_before_discounts": {
+ "amount": 950,
+ "currency": "EUR"
+ },
+ "unit_price_before_discounts": {
+ "amount": 1104,
+ "currency": "EUR"
+ },
+ "subtotal_options_basket_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ },
+ "subtotal_options_item_discounts": {
+ "amount": 0,
+ "currency": "EUR"
+ }
+ }
+ },
+ "name": "Marinated Pork Steaks",
+ "category": {
+ "id": "8c31fd042c1010c27adaf3f5",
+ "name": "Pork"
+ },
+ "deposit": null,
+ "row_number": 18,
+ "substitution_settings": {
+ "is_allowed": false,
+ "comment": ""
+ },
+ "weight_details": {
+ "weight_in_grams": 1162,
+ "requested_count": null,
+ "extra_weight_percentage": 20
+ }
+ }
+ ],
+ "created_at": "2025-08-01T13:08:42.133Z",
+ "consumer_comment": null,
+ "consumer_name": "Pablo L",
+ "consumer_phone_number": null,
+ "pickup_eta": "2025-08-01T13:33:53.564263Z",
+ "attribution_id": null,
+ "type": "instant",
+ "pre_order": null,
+ "order_number": "068",
+ "order_status": "delivered",
+ "modified_at": "2025-08-01T13:29:44.546Z",
+ "company_tax_id": null,
+ "company_name": null,
+ "company_address": null,
+ "consumer_email": null,
+ "loyalty_card_number": null,
+ "is_wolt_plus": null,
+ "is_no_contact_delivery": null,
+ "cash_payment": null,
+ "group_participants": null,
+ "order_handling": {
+ "preparation_time": {
+ "preparation_time_seconds": 1500,
+ "preparation_time_source": "venue_default"
+ },
+ "acceptance_status": "accepted_by_venue",
+ "courier_arrival": "other"
+ }
+}

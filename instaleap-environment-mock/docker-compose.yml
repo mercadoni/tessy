@@ -1,0 +1,22 @@
+services:
+  wiremock:
+    image: wiremock/wiremock:3.13.1
+    container_name: wiremock
+    ports: ["8080:8080"]
+    volumes:
+      - ./wiremock:/home/wiremock
+
+  publisher:
+    build: ./publisher
+    container_name: publisher
+    environment:
+      RABBIT_URL: amqp://guest:guest@rabbitmq:5672
+      QUEUE: orders-events
+      FILE_PATH: /home/wiremock/__files/pickingEvent.json
+    volumes:
+      - ./wiremock:/home/wiremock
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports: ["5672:5672", "15672:15672"]

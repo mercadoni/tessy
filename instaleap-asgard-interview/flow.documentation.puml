@@ -1,0 +1,14 @@
+@startuml
+
+
+OrdersInstaleap --> RabbitMQ: Picking finished event 
+RabbitMQ --> Integrations: Receive the event
+
+Integrations --> Wolt: Get order details
+Wolt --> Integrations: Order details
+
+Integrations --> Integrations: Build replace items payload
+Integrations --> Wolt: Replace items in order
+
+Wolt --> Integrations: Accepted
+@enduml

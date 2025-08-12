@@ -1,0 +1,129 @@
+# The Project
+This project is designed to test your ability to understand an existing system and build upon it. In this README, you will find all the necessary information to complete this test. The estimated time to finish is 2 hours.
+
+## The Challenge - Context
+At Instaleap, our team focuses on developing integrations. Our work involves translating Instaleap's vocabulary into the vocabulary of our external partners through API calls. This test is a fragment of what we usually do and demonstrates your ability to create integrations and communicate with external APIs.
+
+In this small system, we want to notify one of our marketplaces, in this case, WOLT, that an order was collected and modified. We aim to simulate a real test environment, so a mock of the Uber service will be provided.
+
+The mocks required in this challenge are in `instaleap-environment-mock`, this is a simple mock service that will simulate: `InstaleapOrder`. In order to run this mock is required docker. You can launch all the environment you can just run `./run.sh`. If you have any problem with the mocks, run `./clear` to delete the image and generate it again.
+
+All the mocks calls can be found in the [postman collection](Interview.postman_collection.json) provided
+
+- **GetWoltOrder**: This endpoint is the mock to get the original Wolt order
+- **Webhook**: This endpoint simulate a "picking finished" event
+- **ReplaceItem**: This endpoint simulate a replace item call to wolt
+
+![alt text](Flow.png)
+
+
+## Prerequisites
+- Node.js
+- Java and PlantUML extension (optional)
+- Postman (optional)
+
+
+## Instructions
+This repository contains the basic structure of the functionality. Everything that is expected to be done is marked with TODO comments. We recommend starting with the service and its tests, then moving on to the interactors, and finally to the listeners.
+
+We have provide you a paraller repository with 
+
+## Wolt Service
+We want to implement the service that calls Wolt systems. All the required entities are already created in `src/models`. You can review them and ask questions at any time if needed.
+
+We need to implement two methods in the Wolt service:
+1. The [get order method](https://developer.wolt.com/docs/api/order#orderv2) to retrieve the original order.
+2. The [replace items method](https://developer.wolt.com/docs/api/order#replace-order-items) to inform Wolt about changes to the order.
+
+## PickingFinishedInteractor
+This is where the magic happens! For this case, we only have one interactor, which will receive the picking finished event and send it to Wolt. We have already provided a basic schema of how this interactor looks, along with a tool, the `ItemCategorizer`, to simplify the identification of each type of item.
+
+We need to specify to Wolt when:
+
+- **An item was removed**: This means the picker was unable to find the item requested by the user. This case has a special scenario where an item was replaced, but the replacement was also not found.
+
+- **No matched quantity items**: These are items where, due to availability issues, the original requested quantity was modified. This case is internally composed of two different item types: `unitary` and `weighable`.
+
+- **Valid replacement**: These are items that were replaced with a similar item. For example, a Dolex Gripa was replaced with a Noraver Gripa.
+
+To handle these substitutions, we have the following methods:
+
+### mapRemovedOrInvalidReplacementItems
+
+Maps removed or invalid replacement items to the Wolt item changes payload format.
+
+This function handles two types of items:
+1. **Removed items**: Items that were removed by the client and have no replacements.
+2. **Invalid replacement items**: Items marked as replaced but don't have valid substitute items.
+
+For both cases, the count is set to 0 to indicate the item is not available.
+
+**Parameters:**
+- `item: WebhookItem` - The webhook item that was either removed or has invalid replacements.
+
+**Returns:**
+- `WoltItemChangesPayload` with count set to 0 and `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT` type.
+
+**Behavior:**
+- Sets `row_number` to `item.attributes.row` to identify the specific item row.
+- Sets replacement type to `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
+- Sets count to 0 to indicate unavailability.
+
+### mapNoMatchedQuantityItems
+
+Maps items with quantity differences (where `found_quantity` differs from `requested_quantity`) to the Wolt payload format.
+
+This function handles items where the picker found a different quantity than what was originally requested. It delegates to `mapNoMatchedUnitaryQuantityDifference` for the base mapping and then applies additional logic for non-unitary items.
+
+**Parameters:**
+- `item: WebhookItem` - The webhook item with quantity differences.
+
+**Returns:**
+- `WoltItemChangesPayload` with appropriate replacement type and quantity/weight adjustments.
+
+**Behavior:**
+- First calls `mapNoMatchedUnitaryQuantityDifference` to get base mapping.
+- For non-unitary items (not measured in "UN"):
+  - Converts `found_quantity` to weight (multiplied by 1000).
+  - Changes replacement type to `WEIGHT_CHANGE_REPLACEMENT`.
+  - Sets count to 1.
+- For unitary items, uses the base mapping as-is.
+
+### mapNoMatchedUnitaryQuantityDifference
+
+Creates the base mapping for items with quantity differences, specifically for unitary items.
+
+This function provides the fundamental structure for quantity change replacements, setting the found quantity as the new count with `COUNT_CHANGE_REPLACEMENT` type.
+
+**Parameters:**
+- `item: WebhookItem` - The webhook item with quantity differences.
+
+**Returns:**
+- `WoltItemChangesPayload` with the found quantity and `COUNT_CHANGE_REPLACEMENT` type.
+
+**Behavior:**
+- Uses the `item.attributes.row` from attributes.
+- Sets replacement type to `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
+- Sets count to the item's `found_quantity`.
+- This serves as the base mapping that can be modified by `mapNoMatchedQuantityItems`.
+
+### mapValidReplacement
+
+Maps items that have valid substitute replacements to the Wolt payload format.
+
+This function handles items that were replaced with valid substitute items. It retrieves the first valid substitute and creates a menu item replacement with the substitute's details.
+
+**Parameters:**
+- `item: WebhookItem` - The original item that was replaced with a valid substitute.
+
+**Returns:**
+- `WoltItemChangesPayload` with `MENU_ITEM_REPLACEMENT` type containing substitute details.
+
+**Behavior:**
+- Retrieves the first valid substitute of the current item. It relies on this logic from `itemCategorizer`.
+- Uses the original `item.attributes.row` as a `row_number`.
+- Sets replacement type to `MENU_ITEM_REPLACEMENT`.
+- For unitary substitutes: uses the substitute's `found_quantity` as count.
+- For non-unitary substitutes: sets count to 1.
+- Includes the substitute's name and price information.
+- Converts price to cents (multiplied by 100) and includes currency, which is an attribute of the class.

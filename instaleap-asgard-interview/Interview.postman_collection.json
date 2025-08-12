@@ -1,0 +1,37 @@
+{
+	"info": {
+		"_postman_id": "09d21a58-bf61-4609-b5d0-478da5d08642",
+		"name": "Asgard Interview",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "39801214"
+	},
+	"item": [
+		{
+			"name": "GetWoltOrder",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/v2/orders/anything"
+			},
+			"response": []
+		},
+		{
+			"name": "Webhook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:8080/v2/webhook"
+			},
+			"response": []
+		},
+		{
+			"name": "ReplaceItem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": "http://localhost:8080/v2/orders/anything/replace-items"
+			},
+			"response": []
+		}
+	]
+}
