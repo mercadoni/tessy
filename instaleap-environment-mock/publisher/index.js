@@ -21,6 +21,14 @@ app.use(express.json());
 app.post("/publish", async (_req, res) => {
   try {
     const body = fs.readFileSync(FILE_PATH);
+    await fetch("http://host.docker.internal:3000/event", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    });
+
     await publishFixedMessage(body);
     res.status(204).end();
   } catch (e) {

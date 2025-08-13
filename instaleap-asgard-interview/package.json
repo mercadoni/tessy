@@ -7,11 +7,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "start": "nodemon",
-    "build": "tsc",
-    "swagger:gen": "tsoa spec-and-routes",
-    "swagger:spec": "tsoa spec",
-    "swagger:routes": "tsoa routes",
-    "prestart": "npm run swagger:gen"
+    "build": "tsc"
   },
   "keywords": [
     "asgard",
@@ -21,13 +17,10 @@
   "author": "Instaleap-Asgard",
   "license": "ISC",
   "dependencies": {
-    "@types/swagger-ui-express": "^4.1.8",
     "amqplib": "^0.10.8",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
-    "passport": "^0.7.0",
-    "swagger-ui-express": "^5.0.1",
-    "tsoa": "^6.6.0"
+    "passport": "^0.7.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.7",

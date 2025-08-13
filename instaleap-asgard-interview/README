@@ -1,5 +1,5 @@
 # The Project
-This project is designed to test your ability to understand an existing system and build upon it. In this README, you will find all the necessary information to complete this test. The estimated time to finish is 2 hours.
+This project is designed to test your ability to understand an existing system and build upon it. In this README, you will find all the necessary information to complete this test. The estimated time to finish is 2 hours. You are free to use IA tools.
 
 ## The Challenge - Context
 At Instaleap, our team focuses on developing integrations. Our work involves translating Instaleap's vocabulary into the vocabulary of our external partners through API calls. This test is a fragment of what we usually do and demonstrates your ability to create integrations and communicate with external APIs.
@@ -113,13 +113,13 @@ Once the picking process is complete, we need to notify the system. We have two 
 
 Use the Webhook Endpoint: Our mock Webhook endpoint performs two actions: it publishes the event to a local RabbitMQ queue named orders-events and returns the event.
 
-Use a Listener: You can create a listener to read the event directly from the queue. We are also open to an alternative where you call the Webhook endpoint, retrieve the event, and then process it within the interactor by invoking it from an endpoint.
+Use a Listener: You can create a listener to read the event directly from the queue. We are also open to an alternative to process it through a "webhook notification" in the route `/event`. When you call. You can check this in the [router](./src/routes/routes.ts) file
 
 Please provide the advantages and disadvantages of each approach.
 
 Finally, here are the RabbitMQ constants you can use if you choose to work with the queue.
 
 ```
-const RABBIT_URL = process.env.RABBIT_URL || "amqp://guest:guest@rabbitmq:5672";
-const QUEUE = process.env.QUEUE || "orders-events";
+const RABBIT_URL = "amqp://guest:guest@rabbitmq:5672";
+const QUEUE =  "orders-events";
 ```
