@@ -6,6 +6,9 @@ services:
     volumes:
       - ./wiremock:/home/wiremock
 
+    environment:
+      - WIREMOCK_OPTIONS=--verbose
+
   publisher:
     build: ./publisher
     container_name: publisher

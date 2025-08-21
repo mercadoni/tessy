@@ -120,6 +120,6 @@ Please provide the advantages and disadvantages of each approach.
 Finally, here are the RabbitMQ constants you can use if you choose to work with the queue.
 
 ```
-const RABBIT_URL = "amqp://guest:guest@rabbitmq:5672";
+const RABBIT_URL = "amqp://guest:guest@localhost:5672"
 const QUEUE =  "orders-events";
 ```

@@ -56,7 +56,7 @@ export class ReceiveOrderPickingInteractor {
     // TODO 2.1: Implement the actual mapping logic for removed or invalid replacement items
     // This is a stub implementation, replace with actual logic
     return {
-      row_number: 0,
+      row_number: '',
       replacement_items: [
         {
           replacement_type: WoltReplacementItemTypePayload.TEST,
@@ -75,7 +75,7 @@ export class ReceiveOrderPickingInteractor {
 
   private mapNoMatchedQuantityItems(_: WebhookItem): WoltItemChangesPayload {
       return {
-      row_number: 0,
+      row_number: '',
       replacement_items: [
         {
           replacement_type: WoltReplacementItemTypePayload.TEST,
@@ -101,7 +101,7 @@ export class ReceiveOrderPickingInteractor {
     // This is a stub implementation, replace with actual logic
     // Check the README for more details
     return {
-      row_number: 0,
+      row_number: '',
       replacement_items: [
         {
           replacement_type: WoltReplacementItemTypePayload.TEST,

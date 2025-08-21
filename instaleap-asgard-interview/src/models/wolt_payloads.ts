@@ -12,7 +12,7 @@ export interface WoltReplaceItemsPayload {
 }
 
 export interface WoltItemChangesPayload {
-  row_number: number
+  row_number: string
   replacement_items: WoltReplacementItemPayload[]
 }
 
