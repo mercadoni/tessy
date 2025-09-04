@@ -109,17 +109,4 @@ This function handles items that were replaced with valid substitute items. It r
 - Converts price to cents (multiplied by 100) and includes currency, which is an attribute of the class.
 
 ## Process the event for picking finished
-Once the picking process is complete, we need to notify the system. We have two options for this:
-
-Use the Webhook Endpoint: Our mock Webhook endpoint performs two actions: it publishes the event to a local RabbitMQ queue named orders-events and returns the event.
-
-Use a Listener: You can create a listener to read the event directly from the queue. We are also open to an alternative to process it through a "webhook notification" in the route `/event`. When you call. You can check this in the [router](./src/routes/routes.ts) file
-
-Please provide the advantages and disadvantages of each approach.
-
-Finally, here are the RabbitMQ constants you can use if you choose to work with the queue.
-
-```
-const RABBIT_URL = "amqp://guest:guest@rabbitmq:5672";
-const QUEUE =  "orders-events";
-```
+Once the picking finish use case is ready, we need the server to receive the event notification.

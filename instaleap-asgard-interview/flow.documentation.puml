@@ -1,14 +1,13 @@
 @startuml
 
 
-OrdersInstaleap --> RabbitMQ: Picking finished event 
-RabbitMQ --> Integrations: Receive the event
+OrdersInstaleapMock --> Tessy: Receive the event
 
-Integrations --> Wolt: Get order details
-Wolt --> Integrations: Order details
+Tessy --> WoltMock: Get order details
+WoltMock --> Tessy: Order details
 
-Integrations --> Integrations: Build replace items payload
-Integrations --> Wolt: Replace items in order
+Tessy --> Tessy: Build replace items payload
+Tessy --> WoltMock: Replace items in order
 
-Wolt --> Integrations: Accepted
+WoltMock --> Tessy: Accepted
 @enduml

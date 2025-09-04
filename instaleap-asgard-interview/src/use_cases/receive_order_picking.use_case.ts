@@ -5,7 +5,7 @@ import { WoltService } from '../services/wolt_service'
 import { ItemCategorizer } from './tools/item_categorizer'
 import { WebhookItem, WebhookJobEvent } from '../models/job'
 
-export class ReceiveOrderPickingInteractor {
+export class ReceiveOrderPickingUseCase {
   private readonly itemCategorizer: ItemCategorizer
   private readonly currencyCode: string
   private readonly woltOrderId: string
