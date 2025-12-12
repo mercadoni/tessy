@@ -1,12 +1,12 @@
 @startuml
 
 
-OrdersInstaleapMock --> Tessy: Receive the event
+OrdersInstaleapMock --> Tessy: Receive order picking finished event
 
 Tessy --> WoltMock: Get order details
 WoltMock --> Tessy: Order details
 
-Tessy --> Tessy: Build replace items payload
+Tessy --> Tessy: Build replace items payload based on last order changes
 Tessy --> WoltMock: Replace items in order
 
 WoltMock --> Tessy: Accepted
