@@ -1,5 +1,5 @@
 
-import { InteractorResponse } from '../models/interactor'
+import { UseCaseResponse } from '../models/interactor'
 import { WoltItemChangesPayload, WoltReplaceItemsPayload, WoltReplacementItemTypePayload } from '../models/wolt_payloads'
 import { WoltService } from '../services/wolt_service'
 import { ItemCategorizer } from './tools/item_categorizer'
@@ -21,7 +21,7 @@ export class ReceiveOrderPickingUseCase {
     this.itemCategorizer = new ItemCategorizer(jobItems)
   }
 
-  public async handleEvent(): Promise<InteractorResponse> {
+  public async handleEvent(): Promise<UseCaseResponse> {
     const items = this.getItems()
     if (items.item_changes.length !== 0) {
       await this.woltService.replaceItems(this.woltOrderId, items)

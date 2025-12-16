@@ -56,7 +56,7 @@
             },
             {
                 "id": "4036117012489",
-                "name": "Doktorskaya Tri Porosenka Russian Sausage Kolbasa, 500g",
+                "name": "Dolex 500ml",
                 "status": "REPLACED",
                 "replacements": ["2460824"],
                 "is_substitute": false,
@@ -73,7 +73,7 @@
             },
             {
                 "id": "2460824",
-                "name": "Dragon Fruit Mix, 500g",
+                "name": "Noravel 500mg",
                 "status": "ADDED",
                 "replacements": [],
                 "is_substitute": true,

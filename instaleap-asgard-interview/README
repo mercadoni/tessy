@@ -11,7 +11,9 @@ The mocks required in this challenge are in `instaleap-environment-mock`, this i
 All the mocks calls can be found in the [postman collection](Interview.postman_collection.json) provided
 
 - **GetWoltOrder**: This endpoint is the mock to get the original Wolt order
-- **Webhook**: This endpoint simulate a "picking finished" event. This endpoint will submit the event to the orders `orders-events` in Rabbit.
+- **Webhook**: This endpoint simulate a "picking finished" event. It will submit the event in two ways:
+  - **api**: to the /event endpoint
+  - **rabbit**: to `orders-events` queue.
 - **ReplaceItem**: This endpoint simulate a replace item call to wolt
 
 ![alt text](Flow.png)
@@ -103,8 +105,7 @@ This function handles items that were replaced with valid substitute items. It r
 - Retrieves the first valid substitute of the current item. It relies on this logic from `itemCategorizer`.
 - Uses the original `item.id` as a `row_number`.
 - Sets replacement type to `MENU_ITEM_REPLACEMENT`.
-- For unitary substitutes: uses the substitute's `found_quantity` as count.
-- For non-unitary substitutes: sets count to 1.
+- Uses the substitute's `found_quantity` as count.
 - Includes the substitute's name and price information.
 - Converts price to cents (multiplied by 100) and includes currency, which is an attribute of the class.
 

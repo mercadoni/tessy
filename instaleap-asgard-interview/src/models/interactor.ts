@@ -1,4 +1,4 @@
 
-export interface InteractorResponse {
+export interface UseCaseResponse {
     message: string
 }

@@ -1,37 +1,46 @@
 {
-	"info": {
-		"_postman_id": "09d21a58-bf61-4609-b5d0-478da5d08642",
-		"name": "Asgard Interview",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "39801214"
-	},
-	"item": [
-		{
-			"name": "GetWoltOrder",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "http://localhost:8080/v2/orders/anything"
-			},
-			"response": []
-		},
-		{
-			"name": "Webhook",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": "http://localhost:8080/v2/webhook"
-			},
-			"response": []
-		},
-		{
-			"name": "ReplaceItem",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": "http://localhost:8080/v2/orders/anything/replace-items"
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "09d21a58-bf61-4609-b5d0-478da5d08642",
+    "name": "Asgard Interview",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "39801214"
+  },
+  "item": [
+    {
+      "name": "GetWoltOrder",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:8080/v2/orders/688cbc5a69bb26b09ef27ff0"
+      },
+      "response": []
+    },
+    {
+      "name": "Webhook",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "http://localhost:8080/v2/webhook"
+      },
+      "response": []
+    },
+    {
+      "name": "ReplaceItem",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"item_changes\": [\n    {\n      \"row_number\": 1,\n      \"replacement_items\": [\n        { \"replacement_type\": \"count-change-replacement\", \"count\": 0 }\n      ]\n    }\n  ]\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:8080/v2/orders/688cbc5a69bb26b09ef27ff0/replace-items"
+      },
+      "response": []
+    }
+  ]
 }
