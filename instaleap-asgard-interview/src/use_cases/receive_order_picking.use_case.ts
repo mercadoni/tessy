@@ -22,7 +22,7 @@ export class ReceiveOrderPickingUseCase {
   }
 
   public async handleEvent(): Promise<UseCaseResponse> {
-    const items = this.getItems()
+    const items = this.buildWoltReplacementItems()
     if (items.item_changes.length !== 0) {
       await this.woltService.replaceItems(this.woltOrderId, items)
     }
@@ -32,7 +32,7 @@ export class ReceiveOrderPickingUseCase {
     }
   }
 
-  private getItems(): WoltReplaceItemsPayload {
+  private buildWoltReplacementItems(): WoltReplaceItemsPayload {
     const removedOrInvalidReplacementItems = this.getRemovedOrInvalidReplacementItems()
     const noMatchedQuantityItems = this.getQuantityDifferenceItems()
     const validReplacementsItems = this.getValidReplacementsItems()
@@ -55,6 +55,8 @@ export class ReceiveOrderPickingUseCase {
   private mapRemovedOrInvalidReplacementItems(_: WebhookItem): WoltItemChangesPayload {
     // TODO 2.1: Implement the actual mapping logic for removed or invalid replacement items
     // This is a stub implementation, replace with actual logic
+    // Check the README for more details
+
     return {
       row_number: 0,
       replacement_items: [
@@ -74,7 +76,11 @@ export class ReceiveOrderPickingUseCase {
   }
 
   private mapNoMatchedQuantityItems(_: WebhookItem): WoltItemChangesPayload {
-      return {
+    // TODO 2.2: Implement the actual mapping logic for not matching quantity items
+    // This is a stub implementation, replace with actual logic
+    // Check the README for more details
+
+    return {
       row_number: 0,
       replacement_items: [
         {
@@ -100,6 +106,7 @@ export class ReceiveOrderPickingUseCase {
     // TODO 2.3: Implement the actual mapping logic for valid replacements
     // This is a stub implementation, replace with actual logic
     // Check the README for more details
+    
     return {
       row_number: 0,
       replacement_items: [
