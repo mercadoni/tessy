@@ -55,7 +55,8 @@ export class ReceiveOrderPickingUseCase {
   private mapRemovedOrInvalidReplacementItems(_: WebhookItem): WoltItemChangesPayload {
     // TODO 2.1: Implement the actual mapping logic for removed or invalid replacement items
     // This is a stub implementation, replace with actual logic
-    
+    // Check the README for more details
+
     return {
       row_number: 0,
       replacement_items: [
@@ -113,7 +114,7 @@ export class ReceiveOrderPickingUseCase {
           replacement_type: WoltReplacementItemTypePayload.TEST,
           count: 0,
           name: '',
-        price: {
+          price: {
             amount: 0,
             currency: this.currencyCode
           },
