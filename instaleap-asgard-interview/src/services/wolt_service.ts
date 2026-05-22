@@ -1,9 +1,7 @@
-import { WoltOrder } from "src/models/wolt_order"
 import { WoltReplaceItemsPayload } from "src/models/wolt_payloads"
 
 export interface WoltService {
     getRequestHeaders(): Record<string, string>
-    getOrder(orderId: string): Promise<WoltOrder>
     replaceItems(orderId: string, payload: WoltReplaceItemsPayload): Promise<void>
 }
 
@@ -19,11 +17,6 @@ export class WoltServiceImplementation implements WoltService {
       'WOLT-API-KEY': token,
       'Content-Type': 'application/json',
     }
-  }
-
-  public async getOrder(_: string): Promise<WoltOrder> {
-    // TODO 1.2: Implement the getOrder method that pass the test 
-    return {} as WoltOrder 
   }
 
   public async replaceItems(_: string, __: WoltReplaceItemsPayload): Promise<void> {
