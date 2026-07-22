@@ -7,16 +7,7 @@
   },
   "item": [
     {
-      "name": "GetWoltOrder",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": "http://localhost:8080/v2/orders/688cbc5a69bb26b09ef27ff0"
-      },
-      "response": []
-    },
-    {
-      "name": "Webhook",
+      "name": "Trigger webhook event",
       "request": {
         "method": "POST",
         "header": [],
@@ -25,10 +16,10 @@
       "response": []
     },
     {
-      "name": "ReplaceItem",
+      "name": "Send replace item example",
       "request": {
         "method": "PUT",
-        "header": [],
+        "header": [{"key": "UBER-API-KEY", "value": "f31d262d-0fb5-4986-9e9c-d566384c14ff"}, {"key": "Content-Type", "value": "application/json"}],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"item_changes\": [\n    {\n      \"row_number\": 1,\n      \"replacement_items\": [\n        { \"replacement_type\": \"count-change-replacement\", \"count\": 0 }\n      ]\n    }\n  ]\n}\n",

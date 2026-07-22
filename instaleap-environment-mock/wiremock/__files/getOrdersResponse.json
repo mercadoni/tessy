@@ -1028,7 +1028,7 @@
  "company_address": null,
  "consumer_email": null,
  "loyalty_card_number": null,
- "is_wolt_plus": null,
+ "is_uber_plus": null,
  "is_no_contact_delivery": null,
  "cash_payment": null,
  "group_participants": null,

@@ -1,48 +1,44 @@
 # The Project
-This project is designed to test your ability to understand an existing system and build upon it. In this README, you will find all the necessary information to complete this test. The estimated time to finish is 1 hour. You are free to use IA tools.
+This project is designed to test your ability to understand an existing system and build upon it. In this README, you will find all the necessary information to complete this test. The estimated time to finish is 1 hour. You are free to use IA tools (eg. Chatgpt, claude, gemine, etc.).
 
 ## The Challenge - Context
 At Instaleap, our team focuses on developing integrations. Our work involves translating Instaleap's vocabulary into the vocabulary of our external partners through API calls. This test is a fragment of what we usually do and demonstrates your ability to create integrations and communicate with external APIs.
 
-In this small system, we want to notify one of our marketplaces, in this case, WOLT, that an order was collected and modified. We aim to simulate a real test environment, so a mock of the WOLT service will be provided.
+In this small system, we want to notify one of our marketplaces, in this case, Uber, that an order was collected and modified. We aim to simulate a real test environment, so a mock of the Uber service will be provided.
 
-The mocks required in this challenge are in `instaleap-environment-mock`, this is a simple mock service that will simulate: `InstaleapOrder`. In order to run this mock is required docker. You can launch all the environment you can just run `./run.sh`. If you have any problem with the mocks, run `./clear` to delete the image and generate it again.
+The mocks required in this challenge are in `instaleap-environment-mock`, this is a simple mock service that will simulate: `Instaleap events producer`. In order to run this mock is required docker. You can launch all the environment you can just run `./run.sh`. If you have any problem with the mocks, run `./clear` to delete the image and generate it again.
 
 All the mocks calls can be found in the [postman collection](Interview.postman_collection.json) provided
 
-- **GetWoltOrder**: This endpoint is the mock to get the original Wolt order
-- **Webhook**: This endpoint simulate a "picking finished" event. It will submit the event in two ways:
+- **Webhook**: This endpoint simulate a "picking finished" event. It will submit the event via api:
   - **api**: to the /event endpoint
-  - **rabbit**: to `orders-events` queue.
-- **ReplaceItem**: This endpoint simulate a replace item call to wolt
+- **ReplaceItem**: This endpoint simulate a replace item call to Uber
 
 ![alt text](Flow.png)
 
 
 ## Prerequisites
 - Node.js
-- Java and PlantUML extension (optional)
-- Postman (optional)
+- Docker
+- Preferent IDE
 
 
 ## Instructions
-This repository contains the basic structure of the functionality. Everything that is expected to be done is marked with TODO comments. We recommend starting with the service, then moving on to the use cases, and finally to the listeners.
+This repository contains the basic structure of the functionality. **Everything that is expected to be done is marked with TODO comments** `//TODO:`. We recommend starting with the service, then moving on to the use cases, and finally to the routes.
 
-We have provide you a paraller repository with 
+## Uber Service
+We want to implement the service that calls Uber systems. All the required entities are already created in `src/models/uber_payloads`. You can review them and ask questions at any time if needed.
 
-## Wolt Service
-We want to implement the service that calls Wolt systems. All the required entities are already created in `src/models`. You can review them and ask questions at any time if needed.
+We need to implement one method in the Uber service:
 
-We need to implement two methods in the Wolt service:
-1. The [get order method](https://developer.wolt.com/docs/api/order#orderv2) to retrieve the original order.
-2. The [replace items method](https://developer.wolt.com/docs/api/order#replace-order-items) to inform Wolt about changes to the order.
+1. The replace items method to inform Uber about changes to the order ([postman collection](Interview.postman_collection.json)).
 
-## PickingFinisheduse case
-This is where the magic happens! For this case, we only have one use case, which will receive the picking finished event and send it to Wolt. We have already provided a basic schema of how this use case looks, along with a tool, the `ItemCategorizer`, to simplify the identification of each type of item.
+## PickingFinished use case
+This is where the magic happens! For this case, we only have one use case, which will receive the picking finished event and send it to Uber. We have already provided a basic schema of how this use case looks, along with a tool, the `ItemCategorizer`, to simplify the identification of each type of item.
 
-We need to specify to Wolt when:
+We need to specify to Uber when:
 
-- **An item was removed**: This means the picker was unable to find the item requested by the user. This case has a special scenario where an item was replaced, but the replacement was also not found.
+- **An item was removed**: This means the picker was unable to find the item requested by the user.
 
 - **No matched quantity items**: These are items where, due to availability issues, the original requested quantity was modified.
 
@@ -52,23 +48,22 @@ To handle these substitutions, we have the following methods:
 
 ### mapRemovedOrInvalidReplacementItems
 
-Maps removed or invalid replacement items to the Wolt item changes payload format.
+Maps removed or invalid replacement items to the Uber item changes payload format.
 
-This function handles two types of items:
+This function handles one types of items:
 1. **Removed items**: Items that were removed by the client and have no replacements.
-2. **Invalid replacement items**: Items marked as replaced but don't have valid substitute items.
 
-For both cases, the count is set to 0 to indicate the item is not available.
+For that case, the count is set to 0 to indicate the item is not available.
 
 **Parameters:**
 - `item: WebhookItem` - The webhook item that was either removed or has invalid replacements.
 
 **Returns:**
-- `WoltItemChangesPayload` with count set to 0 and `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT` type.
+- `UbertemChangesPayload` with count set to 0 and `UberReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT` type.
 
 **Behavior:**
 - Sets `row_number` to `item.id` to identify the specific item row.
-- Sets replacement type to `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
+- Sets replacement type to `UberReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
 - Sets count to 0 to indicate unavailability.
 
 ### mapNoMatchedQuantityItems
@@ -81,17 +76,17 @@ This function provides the fundamental structure for quantity change replacement
 - `item: WebhookItem` - The webhook item with quantity differences.
 
 **Returns:**
-- `WoltItemChangesPayload` with the found quantity and `COUNT_CHANGE_REPLACEMENT` type.
+- `UberItemChangesPayload` with the found quantity and `COUNT_CHANGE_REPLACEMENT` type.
 
 **Behavior:**
 - Uses the `item.id` from attributes.
-- Sets replacement type to `WoltReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
+- Sets replacement type to `UberReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
 - Sets count to the item's `found_quantity`.
 - This serves as the base mapping that can be modified by `mapNoMatchedQuantityItems`.
 
 ### mapValidReplacement
 
-Maps items that have valid substitute replacements to the Wolt payload format.
+Maps items that have valid substitute replacements to the Uber payload format.
 
 This function handles items that were replaced with valid substitute items. It retrieves the first valid substitute and creates a menu item replacement with the substitute's details.
 
@@ -99,7 +94,7 @@ This function handles items that were replaced with valid substitute items. It r
 - `item: WebhookItem` - The original item that was replaced with a valid substitute.
 
 **Returns:**
-- `WoltItemChangesPayload` with `MENU_ITEM_REPLACEMENT` type containing substitute details.
+- `UberItemChangesPayload` with `MENU_ITEM_REPLACEMENT` type containing substitute details.
 
 **Behavior:**
 - Retrieves the first valid substitute of the current item. It relies on this logic from `itemCategorizer`.
@@ -110,4 +105,4 @@ This function handles items that were replaced with valid substitute items. It r
 - Converts price to cents (multiplied by 100) and includes currency, which is an attribute of the class.
 
 ## Process the event for picking finished
-Once the picking finish use case is ready, we need the server to receive the event notification by API.
+Once the picking finish use case is ready, we need the server to receive the event notification by API at `/event` endpoint.

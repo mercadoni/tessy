@@ -1,30 +1,30 @@
 
 import { UseCaseResponse } from '../models/interactor'
-import { WoltItemChangesPayload, WoltReplaceItemsPayload, WoltReplacementItemTypePayload } from '../models/wolt_payloads'
-import { WoltService } from '../services/wolt_service'
+import { UberItemChangesPayload, UberReplaceItemsPayload, UberReplacementItemTypePayload } from '../models/uber_payloads'
+import { UberService } from '../services/uber.service'
 import { ItemCategorizer } from './tools/item_categorizer'
 import { WebhookItem, WebhookJobEvent } from '../models/job'
 
 export class ReceiveOrderPickingUseCase {
   private readonly itemCategorizer: ItemCategorizer
   private readonly currencyCode: string
-  private readonly woltOrderId: string
+  private readonly uberOrderId: string
 
   constructor(
-    private readonly woltService: WoltService,
+    private readonly uberService: UberService,
     payload: WebhookJobEvent,
   ) {
     const { client_reference, job_items: jobItems, payment_info: paymentInfo } = payload.job
-    this.woltOrderId = client_reference
+    this.uberOrderId = client_reference
     this.currencyCode = paymentInfo.currency_code
 
     this.itemCategorizer = new ItemCategorizer(jobItems)
   }
 
   public async handleEvent(): Promise<UseCaseResponse> {
-    const items = this.buildWoltReplacementItems()
+    const items = this.buildUberReplacementItems()
     if (items.item_changes.length !== 0) {
-      await this.woltService.replaceItems(this.woltOrderId, items)
+      await this.uberService.replaceItems(this.uberOrderId, items)
     }
 
     return {
@@ -32,28 +32,26 @@ export class ReceiveOrderPickingUseCase {
     }
   }
 
-  private buildWoltReplacementItems(): WoltReplaceItemsPayload {
-    const removedOrInvalidReplacementItems = this.getRemovedOrInvalidReplacementItems()
+  private buildUberReplacementItems(): UberReplaceItemsPayload {
+    const removedItems = this.getRemovedItems()
     const noMatchedQuantityItems = this.getQuantityDifferenceItems()
     const validReplacementsItems = this.getValidReplacementsItems()
 
     return {
-      item_changes: [...removedOrInvalidReplacementItems, ...noMatchedQuantityItems, ...validReplacementsItems],
+      item_changes: [...removedItems, ...noMatchedQuantityItems, ...validReplacementsItems],
     }
   }
 
-  private getRemovedOrInvalidReplacementItems(): WoltItemChangesPayload[] {
-    const invalidReplacements = this.itemCategorizer.getInvalidReplacedItems()
-    const removed = this.itemCategorizer.getRemovedItems()
+  private getRemovedItems(): UberItemChangesPayload[] {
+    const items = this.itemCategorizer.getRemovedItems()
 
-    const items = invalidReplacements.concat(removed)
-    const mappedItems = items.map((item) => this.mapRemovedOrInvalidReplacementItems(item))
+    const mappedItems = items.map((item) => this.mapRemovedItems(item))
 
     return mappedItems
   }
 
-  private mapRemovedOrInvalidReplacementItems(_: WebhookItem): WoltItemChangesPayload {
-    // TODO 2.1: Implement the actual mapping logic for removed or invalid replacement items
+  private mapRemovedItems(_: WebhookItem): UberItemChangesPayload {
+    // TODO 2.1: Implement the actual mapping logic for removed items
     // This is a stub implementation, replace with actual logic
     // Check the README for more details
 
@@ -61,21 +59,21 @@ export class ReceiveOrderPickingUseCase {
       row_number: 0,
       replacement_items: [
         {
-          replacement_type: WoltReplacementItemTypePayload.TEST,
+          replacement_type: UberReplacementItemTypePayload.TEST,
           count: 0,
         },
       ],
     }
   }
 
-  private getQuantityDifferenceItems(): WoltItemChangesPayload[] {
+  private getQuantityDifferenceItems(): UberItemChangesPayload[] {
     const quantityDifference = this.itemCategorizer.getQuantityDifferenceItems()
     const items = quantityDifference.map((item) => this.mapNoMatchedQuantityItems(item))
 
     return items
   }
 
-  private mapNoMatchedQuantityItems(_: WebhookItem): WoltItemChangesPayload {
+  private mapNoMatchedQuantityItems(_: WebhookItem): UberItemChangesPayload {
     // TODO 2.2: Implement the actual mapping logic for not matching quantity items
     // This is a stub implementation, replace with actual logic
     // Check the README for more details
@@ -84,7 +82,7 @@ export class ReceiveOrderPickingUseCase {
       row_number: 0,
       replacement_items: [
         {
-          replacement_type: WoltReplacementItemTypePayload.TEST,
+          replacement_type: UberReplacementItemTypePayload.TEST,
           count: 0,
         },
       ],
@@ -95,14 +93,14 @@ export class ReceiveOrderPickingUseCase {
     return item.unit.toUpperCase() === 'UN'
   }
 
-  private getValidReplacementsItems(): WoltItemChangesPayload[] {
+  private getValidReplacementsItems(): UberItemChangesPayload[] {
     const replacements = this.itemCategorizer.getReplacedItems()
     const items = replacements.map((item) => this.mapValidReplacement(item))
 
     return items
   }
 
-  private mapValidReplacement(_: WebhookItem): WoltItemChangesPayload {
+  private mapValidReplacement(_: WebhookItem): UberItemChangesPayload {
     // TODO 2.3: Implement the actual mapping logic for valid replacements
     // This is a stub implementation, replace with actual logic
     // Check the README for more details
@@ -111,7 +109,7 @@ export class ReceiveOrderPickingUseCase {
       row_number: 0,
       replacement_items: [
         {
-          replacement_type: WoltReplacementItemTypePayload.TEST,
+          replacement_type: UberReplacementItemTypePayload.TEST,
           count: 0,
           name: '',
           price: {
