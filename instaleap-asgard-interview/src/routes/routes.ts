@@ -1,11 +1,20 @@
-import { Router } from 'express';
+import { Router, Request, Response, NextFunction } from 'express'
+import { UberServiceImplementation } from '../services/uber.service'
+import { ReceiveOrderPickingUseCase } from '../use_cases/receive_order_picking.use_case'
+import { WebhookJobEvent } from '../models/job'
 
-const router = Router();
+const router = Router()
+const uberService = new UberServiceImplementation()
 
-router.post('/event', (req, res) => {
- console.log(` Event received{${JSON.stringify(req.body)}}`); 
-    //TODO: Something is missing here
-    res.status(201).json({ message: 'Event created successfully' });
-});
+router.post('/event', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const payload = req.body as WebhookJobEvent
+    const useCase = new ReceiveOrderPickingUseCase(uberService, payload)
+    const result = await useCase.handleEvent()
+    res.status(201).json(result)
+  } catch (error) {
+    next(error)
+  }
+})
 
-export default router;
+export default router

@@ -1,11 +1,18 @@
-import { UberReplaceItemsPayload } from "src/models/uber_payloads"
+import axios from 'axios'
+import { UberReplaceItemsPayload } from '../models/uber_payloads'
 
 export interface UberService {
-    getRequestHeaders(): Record<string, string>
-    replaceItems(orderId: string, payload: UberReplaceItemsPayload): Promise<void>
+  getRequestHeaders(): Record<string, string>
+  replaceItems(orderId: string, payload: UberReplaceItemsPayload): Promise<void>
 }
 
 export class UberServiceImplementation implements UberService {
+  private readonly baseUrl: string
+
+  constructor() {
+    this.baseUrl = process.env.uber_base_url ?? 'http://localhost:8080'
+  }
+
   getRequestHeaders(): Record<string, string> {
     const token = process.env.uber_token
 
@@ -19,7 +26,11 @@ export class UberServiceImplementation implements UberService {
     }
   }
 
-  public async replaceItems(_: string, __: UberReplaceItemsPayload): Promise<void> {
-    // TODO: actual implementation
+  async replaceItems(orderId: string, payload: UberReplaceItemsPayload): Promise<void> {
+    // TODO 1: Call the Uber replace-items endpoint.
+    // Use the Postman collection (Interview.postman_collection.json) to find the request shape.
+    // The base URL and auth headers are already set up — focus on the HTTP call itself.
+    // Hint: POST /order/{orderId}/replace_items
+    console.log(`replaceItems called for order ${orderId}`, payload)
   }
 }
