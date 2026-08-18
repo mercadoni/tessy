@@ -1,108 +1,89 @@
 # The Project
-This project is designed to test your ability to understand an existing system and build upon it. In this README, you will find all the necessary information to complete this test. The estimated time to finish is 1 hour. You are free to use IA tools (eg. Chatgpt, claude, gemine, etc.).
+This project tests your ability to understand an existing system and extend it. In this README you will find all the information you need to complete the challenge. **Estimated time: 1 hour of coding.** You are free to use any AI tools (ChatGPT, Claude, Gemini, Copilot, etc.).
 
-## The Challenge - Context
-At Instaleap, our team focuses on developing integrations. Our work involves translating Instaleap's vocabulary into the vocabulary of our external partners through API calls. This test is a fragment of what we usually do and demonstrates your ability to create integrations and communicate with external APIs.
+---
 
-In this small system, we want to notify one of our marketplaces, in this case, Uber, that an order was collected and modified. We aim to simulate a real test environment, so a mock of the Uber service will be provided.
+## Context
 
-The mocks required in this challenge are in `instaleap-environment-mock`, this is a simple mock service that will simulate: `Instaleap events producer`. In order to run this mock is required docker. You can launch all the environment you can just run `./run.sh`. If you have any problem with the mocks, run `./clear` to delete the image and generate it again.
+> **This is the second part of your interview.** In the design challenge, we explored how orders arrive from Uber into the Instaleap (Nébula) system. Now we flip the direction: an order has been picked, and we need to notify Uber of the final item changes before closing the loop.
 
-All the mocks calls can be found in the [postman collection](Interview.postman_collection.json) provided
+At Instaleap, our team — Asgar — owns the integration layer between Instaleap's internal systems and external marketplaces. Our job is to translate Instaleap's vocabulary into each marketplace's API contract.
 
-- **Webhook**: This endpoint simulate a "picking finished" event. It will submit the event via api:
-  - **api**: to the /event endpoint
-- **ReplaceItem**: This endpoint simulate a replace item call to Uber
+In this system, when a picker finishes collecting an order, Nébula emits a `picking_finish` event. **Asgar intercepts it, translates the item changes, and calls Uber's replace-items API** so Uber can update the order on their end.
 
 ![alt text](Flow.png)
 
+---
 
-## Prerequisites
-- Node.js
-- Docker
-- Preferent IDE
+## Running the mock environment
 
+The `instaleap-environment-mock` folder contains a mock that simulates both the Uber API and the Nébula event publisher. It requires Docker.
 
-## Instructions
-This repository contains the basic structure of the functionality. **Everything that is expected to be done is marked with TODO comments** `//TODO:`. We recommend starting with the service, then moving on to the use cases, and finally to the routes.
+```bash
+cd instaleap-environment-mock
+./run.sh          # start the mock
+./clean.sh        # reset if something looks wrong
+```
 
-## Uber Service
-We want to implement the service that calls Uber systems. All the required entities are already created in `src/models/uber_payloads`. You can review them and ask questions at any time if needed.
+All testable calls are in the [Postman collection](Interview.postman_collection.json).
 
-We need to implement one method in the Uber service:
+**Prerequisites:** Node.js, Docker, your preferred IDE.
 
-1. The replace items method to inform Uber about changes to the order ([postman collection](Interview.postman_collection.json)).
+---
 
-## PickingFinished use case
-This is where the magic happens! For this case, we only have one use case, which will receive the picking finished event and send it to Uber. We have already provided a basic schema of how this use case looks, along with a tool, the `ItemCategorizer`, to simplify the identification of each type of item.
+## What you need to implement
 
-We need to specify to Uber when:
+Everything that needs to be done is marked with a `// TODO` comment. We recommend tackling them in order:
 
-- **An item was removed**: This means the picker was unable to find the item requested by the user.
+### TODO 1 — `uber.service.ts`: Call the Uber API
 
-- **No matched quantity items**: These are items where, due to availability issues, the original requested quantity was modified.
+Implement `replaceItems`. This method receives an order ID and the full replacement payload and must POST it to Uber's endpoint. The Postman collection shows the expected request shape. The base URL (`uber_base_url`) and auth headers are already wired up.
 
-- **Valid replacement**: These are items that were replaced with a similar item. For example, a Dolex Gripa was replaced with a Noraver Gripa.
+### TODO 2 — `receive_order_picking.use_case.ts`: Map removed items
 
-To handle these substitutions, we have the following methods:
+Implement `buildRemovedItemPayload`. A removed item means the picker could not find it — Uber needs to know the count drops to zero.
 
-### mapRemovedOrInvalidReplacementItems
+**Expected payload shape:**
 
-Maps removed or invalid replacement items to the Uber item changes payload format.
+| Field | Value |
+|---|---|
+| `row_number` | `item.id` |
+| `replacement_type` | `COUNT_CHANGE_REPLACEMENT` |
+| `count` | `0` |
 
-This function handles one types of items:
-1. **Removed items**: Items that were removed by the client and have no replacements.
+### TODO 3 (stretch) — `receive_order_picking.use_case.ts`: Map valid replacements
 
-For that case, the count is set to 0 to indicate the item is not available.
+Implement `buildValidReplacementPayload`. A valid replacement means the picker substituted the original item with a similar one (e.g., Dolex → Noravel). Use `itemCategorizer.getValidSubstitutesOfAnItem()` to retrieve the first valid substitute and build the Uber payload.
 
-**Parameters:**
-- `item: WebhookItem` - The webhook item that was either removed or has invalid replacements.
+**Expected payload shape:**
 
-**Returns:**
-- `UbertemChangesPayload` with count set to 0 and `UberReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT` type.
+| Field | Value |
+|---|---|
+| `row_number` | original `item.id` |
+| `replacement_type` | `MENU_ITEM_REPLACEMENT` |
+| `count` | substitute's `found_quantity` |
+| `name` | substitute's `name` |
+| `price.amount` | substitute's `price × 100` (cents) |
+| `price.currency` | `currencyCode` (from constructor) |
 
-**Behavior:**
-- Sets `row_number` to `item.id` to identify the specific item row.
-- Sets replacement type to `UberReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
-- Sets count to 0 to indicate unavailability.
+---
 
-### mapNoMatchedQuantityItems
+## Codebase structure
 
-Creates the base mapping for items with quantity differences, specifically for unitary items.
+```
+src/
+  models/
+    job.ts              ← Nébula event types (WebhookItem, WebhookJobEvent)
+    uber_payloads.ts    ← Uber API payload types
+    interactor.ts       ← UseCaseResponse
+  services/
+    uber.service.ts     ← TODO 1 lives here
+  use_cases/
+    receive_order_picking.use_case.ts  ← TODO 2 & 3 live here
+    tools/
+      item_categorizer.ts  ← already implemented, available to use
+  routes/
+    routes.ts           ← wired up, no changes needed
+```
 
-This function provides the fundamental structure for quantity change replacements, setting the found quantity as the new count with `COUNT_CHANGE_REPLACEMENT` type.
-
-**Parameters:**
-- `item: WebhookItem` - The webhook item with quantity differences.
-
-**Returns:**
-- `UberItemChangesPayload` with the found quantity and `COUNT_CHANGE_REPLACEMENT` type.
-
-**Behavior:**
-- Uses the `item.id` from attributes.
-- Sets replacement type to `UberReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT`.
-- Sets count to the item's `found_quantity`.
-- This serves as the base mapping that can be modified by `mapNoMatchedQuantityItems`.
-
-### mapValidReplacement
-
-Maps items that have valid substitute replacements to the Uber payload format.
-
-This function handles items that were replaced with valid substitute items. It retrieves the first valid substitute and creates a menu item replacement with the substitute's details.
-
-**Parameters:**
-- `item: WebhookItem` - The original item that was replaced with a valid substitute.
-
-**Returns:**
-- `UberItemChangesPayload` with `MENU_ITEM_REPLACEMENT` type containing substitute details.
-
-**Behavior:**
-- Retrieves the first valid substitute of the current item. It relies on this logic from `itemCategorizer`.
-- Uses the original `item.id` as a `row_number`.
-- Sets replacement type to `MENU_ITEM_REPLACEMENT`.
-- Uses the substitute's `found_quantity` as count.
-- Includes the substitute's name and price information.
-- Converts price to cents (multiplied by 100) and includes currency, which is an attribute of the class.
-
-## Process the event for picking finished
-Once the picking finish use case is ready, we need the server to receive the event notification by API at `/event` endpoint.
+Feel free to ask your interviewers any questions at any time — they are here to help.

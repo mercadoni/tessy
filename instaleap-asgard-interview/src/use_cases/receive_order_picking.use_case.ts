@@ -1,6 +1,9 @@
-
 import { UseCaseResponse } from '../models/interactor'
-import { UberItemChangesPayload, UberReplaceItemsPayload, UberReplacementItemTypePayload } from '../models/uber_payloads'
+import {
+  UberItemChangesPayload,
+  UberReplaceItemsPayload,
+  UberReplacementItemTypePayload,
+} from '../models/uber_payloads'
 import { UberService } from '../services/uber.service'
 import { ItemCategorizer } from './tools/item_categorizer'
 import { WebhookItem, WebhookJobEvent } from '../models/job'
@@ -17,44 +20,35 @@ export class ReceiveOrderPickingUseCase {
     const { client_reference, job_items: jobItems, payment_info: paymentInfo } = payload.job
     this.uberOrderId = client_reference
     this.currencyCode = paymentInfo.currency_code
-
     this.itemCategorizer = new ItemCategorizer(jobItems)
   }
 
-  public async handleEvent(): Promise<UseCaseResponse> {
-    const items = this.buildUberReplacementItems()
-    if (items.item_changes.length !== 0) {
-      await this.uberService.replaceItems(this.uberOrderId, items)
+  async handleEvent(): Promise<UseCaseResponse> {
+    const payload = this.buildUberReplacementPayload()
+    if (payload.item_changes.length !== 0) {
+      await this.uberService.replaceItems(this.uberOrderId, payload)
     }
 
+    return { message: 'EVENT_SUCCESSFULLY_MANAGED' }
+  }
+
+  private buildUberReplacementPayload(): UberReplaceItemsPayload {
     return {
-      message: 'EVENT_SUCCESSFULLY_MANAGED',
+      item_changes: [
+        ...this.mapRemovedItems(),
+        ...this.mapValidReplacements(),
+      ],
     }
   }
 
-  private buildUberReplacementItems(): UberReplaceItemsPayload {
-    const removedItems = this.getRemovedItems()
-    const noMatchedQuantityItems = this.getQuantityDifferenceItems()
-    const validReplacementsItems = this.getValidReplacementsItems()
-
-    return {
-      item_changes: [...removedItems, ...noMatchedQuantityItems, ...validReplacementsItems],
-    }
+  private mapRemovedItems(): UberItemChangesPayload[] {
+    return this.itemCategorizer.getRemovedItems().map((item) => this.buildRemovedItemPayload(item))
   }
 
-  private getRemovedItems(): UberItemChangesPayload[] {
-    const items = this.itemCategorizer.getRemovedItems()
-
-    const mappedItems = items.map((item) => this.mapRemovedItems(item))
-
-    return mappedItems
-  }
-
-  private mapRemovedItems(_: WebhookItem): UberItemChangesPayload {
-    // TODO 2.1: Implement the actual mapping logic for removed items
-    // This is a stub implementation, replace with actual logic
-    // Check the README for more details
-
+  private buildRemovedItemPayload(_: WebhookItem): UberItemChangesPayload {
+    // TODO 2: Map a removed item to the Uber payload.
+    // Uber needs to know the item is unavailable: set count to 0.
+    // See README § mapRemovedOrInvalidReplacementItems for the expected payload shape.
     return {
       row_number: 0,
       replacement_items: [
@@ -66,45 +60,14 @@ export class ReceiveOrderPickingUseCase {
     }
   }
 
-  private getQuantityDifferenceItems(): UberItemChangesPayload[] {
-    const quantityDifference = this.itemCategorizer.getQuantityDifferenceItems()
-    const items = quantityDifference.map((item) => this.mapNoMatchedQuantityItems(item))
-
-    return items
+  private mapValidReplacements(): UberItemChangesPayload[] {
+    return this.itemCategorizer.getReplacedItems().map((item) => this.buildValidReplacementPayload(item))
   }
 
-  private mapNoMatchedQuantityItems(_: WebhookItem): UberItemChangesPayload {
-    // TODO 2.2: Implement the actual mapping logic for not matching quantity items
-    // This is a stub implementation, replace with actual logic
-    // Check the README for more details
-
-    return {
-      row_number: 0,
-      replacement_items: [
-        {
-          replacement_type: UberReplacementItemTypePayload.TEST,
-          count: 0,
-        },
-      ],
-    }
-  }
-
-  public isUnitary(item: WebhookItem) {
-    return item.unit.toUpperCase() === 'UN'
-  }
-
-  private getValidReplacementsItems(): UberItemChangesPayload[] {
-    const replacements = this.itemCategorizer.getReplacedItems()
-    const items = replacements.map((item) => this.mapValidReplacement(item))
-
-    return items
-  }
-
-  private mapValidReplacement(_: WebhookItem): UberItemChangesPayload {
-    // TODO 2.3: Implement the actual mapping logic for valid replacements
-    // This is a stub implementation, replace with actual logic
-    // Check the README for more details
-    
+  private buildValidReplacementPayload(_: WebhookItem): UberItemChangesPayload {
+    // TODO 3 (stretch): Map a valid substitute to the Uber payload.
+    // Use itemCategorizer.getValidSubstitutesOfAnItem() to get the first valid substitute.
+    // See README § mapValidReplacement for the expected payload shape.
     return {
       row_number: 0,
       replacement_items: [
@@ -114,7 +77,7 @@ export class ReceiveOrderPickingUseCase {
           name: '',
           price: {
             amount: 0,
-            currency: this.currencyCode
+            currency: this.currencyCode,
           },
         },
       ],
