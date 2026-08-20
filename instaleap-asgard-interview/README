@@ -35,23 +35,11 @@ All testable calls are in the [Postman collection](Interview.postman_collection.
 
 Everything that needs to be done is marked with a `// TODO` comment. We recommend tackling them in order:
 
-### TODO 1 — `uber.service.ts`: Call the Uber API
+### TODO — `uber.service.ts`: Call the Uber API
 
-Implement `replaceItems`. This method receives an order ID and the full replacement payload and must POST it to Uber's endpoint. The Postman collection shows the expected request shape. The base URL (`uber_base_url`) and auth headers are already wired up.
+Implement `replaceItems`. This method receives an order ID and the full replacement payload and must PUT it to Uber's endpoint. The Postman collection shows the expected request shape. The base URL (`uber_base_url`) and auth headers are already wired up.
 
-### TODO 2 — `receive_order_picking.use_case.ts`: Map removed items
-
-Implement `buildRemovedItemPayload`. A removed item means the picker could not find it — Uber needs to know the count drops to zero.
-
-**Expected payload shape:**
-
-| Field | Value |
-|---|---|
-| `row_number` | `item.id` |
-| `replacement_type` | `COUNT_CHANGE_REPLACEMENT` |
-| `count` | `0` |
-
-### TODO 3 (stretch) — `receive_order_picking.use_case.ts`: Map valid replacements
+### TODO (stretch) — `receive_order_picking.use_case.ts`: Map valid replacements
 
 Implement `buildValidReplacementPayload`. A valid replacement means the picker substituted the original item with a similar one (e.g., Dolex → Noravel). Use `itemCategorizer.getValidSubstitutesOfAnItem()` to retrieve the first valid substitute and build the Uber payload.
 

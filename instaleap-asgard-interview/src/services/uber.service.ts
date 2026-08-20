@@ -27,7 +27,7 @@ export class UberServiceImplementation implements UberService {
   }
 
   async replaceItems(orderId: string, payload: UberReplaceItemsPayload): Promise<void> {
-    // TODO 1: Call the Uber replace-items endpoint.
+    // TODO: Call the Uber replace-items endpoint.
     // Use the Postman collection (Interview.postman_collection.json) to find the request shape.
     // The base URL and auth headers are already set up — focus on the HTTP call itself.
     // Hint: POST /order/{orderId}/replace_items
