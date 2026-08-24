@@ -45,15 +45,12 @@ export class ReceiveOrderPickingUseCase {
     return this.itemCategorizer.getRemovedItems().map((item) => this.buildRemovedItemPayload(item))
   }
 
-  private buildRemovedItemPayload(_: WebhookItem): UberItemChangesPayload {
-    // TODO 2: Map a removed item to the Uber payload.
-    // Uber needs to know the item is unavailable: set count to 0.
-    // See README § mapRemovedOrInvalidReplacementItems for the expected payload shape.
+  private buildRemovedItemPayload(item: WebhookItem): UberItemChangesPayload {
     return {
-      row_number: 0,
+      row_number: Number(item.id),
       replacement_items: [
         {
-          replacement_type: UberReplacementItemTypePayload.TEST,
+          replacement_type: UberReplacementItemTypePayload.COUNT_CHANGE_REPLACEMENT,
           count: 0,
         },
       ],
@@ -65,8 +62,8 @@ export class ReceiveOrderPickingUseCase {
   }
 
   private buildValidReplacementPayload(_: WebhookItem): UberItemChangesPayload {
-    // TODO 3 (stretch): Map a valid substitute to the Uber payload.
-    // Use itemCategorizer.getValidSubstitutesOfAnItem() to get the first valid substitute.
+    // TODO: Map a valid substitute to the Uber payload.
+    // Use itemCategorizer to get the first valid substitute.
     // See README § mapValidReplacement for the expected payload shape.
     return {
       row_number: 0,
