@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { UberReplaceItemsPayload } from '../models/uber_payloads'
 
 export interface UberService {

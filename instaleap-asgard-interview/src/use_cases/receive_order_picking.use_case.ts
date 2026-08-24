@@ -63,7 +63,7 @@ export class ReceiveOrderPickingUseCase {
 
   private buildValidReplacementPayload(_: WebhookItem): UberItemChangesPayload {
     // TODO: Map a valid substitute to the Uber payload.
-    // Use itemCategorizer.getValidSubstitutesOfAnItem() to get the first valid substitute.
+    // Use itemCategorizer to get the first valid substitute.
     // See README § mapValidReplacement for the expected payload shape.
     return {
       row_number: 0,

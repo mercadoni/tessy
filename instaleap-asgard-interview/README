@@ -5,11 +5,11 @@ This project tests your ability to understand an existing system and extend it. 
 
 ## Context
 
-> **This is the second part of your interview.** In the design challenge, we explored how orders arrive from Uber into the Instaleap (Nébula) system. Now we flip the direction: an order has been picked, and we need to notify Uber of the final item changes before closing the loop.
+> **This is the second part of your interview.** In the design challenge, we explored how orders arrive from Uber into the Instaleap (CORE) system. Now we flip the direction: an order has been picked, and we need to notify Uber of the final item changes before closing the loop.
 
-At Instaleap, our team — Asgar — owns the integration layer between Instaleap's internal systems and external marketplaces. Our job is to translate Instaleap's vocabulary into each marketplace's API contract.
+At Instaleap, our team — Tessy — owns the integration layer between Instaleap's internal systems and external marketplaces. Our job is to translate Instaleap's vocabulary into each marketplace's API contract.
 
-In this system, when a picker finishes collecting an order, Nébula emits a `picking_finish` event. **Asgar intercepts it, translates the item changes, and calls Uber's replace-items API** so Uber can update the order on their end.
+In this system, when a picker finishes collecting an order, CORE emits a `picking_finish` event. **Tessy intercepts it, translates the item changes, and calls Uber's replace-items API** so Uber can update the order on their end.
 
 ![alt text](Flow.png)
 
@@ -17,7 +17,7 @@ In this system, when a picker finishes collecting an order, Nébula emits a `pic
 
 ## Running the mock environment
 
-The `instaleap-environment-mock` folder contains a mock that simulates both the Uber API and the Nébula event publisher. It requires Docker.
+The `instaleap-environment-mock` folder contains a mock that simulates both the Uber API and the CORE event publisher. It requires Docker.
 
 ```bash
 cd instaleap-environment-mock
@@ -61,13 +61,13 @@ Implement `buildValidReplacementPayload`. A valid replacement means the picker s
 ```
 src/
   models/
-    job.ts              ← Nébula event types (WebhookItem, WebhookJobEvent)
+    job.ts              ← CORE event types (WebhookItem, WebhookJobEvent)
     uber_payloads.ts    ← Uber API payload types
     interactor.ts       ← UseCaseResponse
   services/
-    uber.service.ts     ← TODO 1 lives here
+    uber.service.ts     ← TODO
   use_cases/
-    receive_order_picking.use_case.ts  ← TODO 2 & 3 live here
+    receive_order_picking.use_case.ts  ← TODO
     tools/
       item_categorizer.ts  ← already implemented, available to use
   routes/
