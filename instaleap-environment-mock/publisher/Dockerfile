@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM public.ecr.aws/docker/library/node:24.22.1-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --omit=dev
